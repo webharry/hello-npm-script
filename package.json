@@ -11,7 +11,7 @@
     "//cover:archive": "mkdir -p coverage_archive/$npm_package_version && cp -r coverage/* coverage_archive/$npm_package_version",
     "test": "cross-env NODE_ENV=test mocha src/",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:js": "eslint *.js",
+    "lint:js": "eslint src/*.js",
     "lint:css": "stylelint *.less",
     "lint:json": "jsonlint --quiet *.json",
     "lint:markdown": "markdownlint --config .markdownlint.json *.md",
@@ -41,8 +41,15 @@
     "client:static-server": "http-server client/",
     "dummy": "echo $npm_package_name",
     "dumit": "echo $npm_package_config_port",
-    "precommit": "npm run lint",
+    "precommit": "lint-staged",
     "prepush": "npm run test"
+  },
+  "lint-staged": {
+     "*.js": "eslint",
+     "*.less": "stylelint",
+     "*.css": "stylelint",
+     "*.json": "jsonlint --quiet",
+     "*.md": "markdownlint --config .markdownlint.json"
   },
   "keywords": [],
   "author": "",
